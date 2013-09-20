@@ -70,7 +70,7 @@ class WPCustomCategoryImage{
 		$_data = array(
 			'wp_version' => WP_VERSION,
 			'label'      => array(
-				'title'  => __('Choose Category Image Header',TXT_DOMAIN),
+				'title'  => __('Choose Category Image',TXT_DOMAIN),
 				'button' => __('Choose Image',TXT_DOMAIN)
 			)
 		);
