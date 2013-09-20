@@ -45,3 +45,13 @@ if(!function_exists('category_image_src')){
 		echo $image_header;
 	}
 }
+
+// thanks to http://www.squarepenguin.com/wordpress/?p=6
+function wpcci_error($message, $errno){
+	$action = isset($_GET['action']) ? trim($_GET['action']) : null;
+    if(!is_null($action) && $action === 'error_scrape') {
+    	die( $message );
+    } else {
+        trigger_error($message, $errno);
+    }
+}

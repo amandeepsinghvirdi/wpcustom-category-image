@@ -8,14 +8,22 @@ class WPCustomCategoryImage{
 	// array with all taxonomies
 	private $taxonomies;
 
-	// initialize wp custom category image
-	public static function initialize(){
+	public static function install(){
 
-		if(!( WP_VERSION >= 3.5)){
+		if(!( WP_VERSION >= WP_MIN_VERSION)){
 			// NO GOD! PLEASE NO!!! NOOOOOOOOOO
-			// http://www.youtube.com/watch?v=umDr0mPuyQc
+			$message = '<a href="http://www.youtube.com/watch?v=umDr0mPuyQc" target="_blank">';
+			$message.= __('Sorry, WPCustom Category Image works only under Wordpress 3.5 or higher',TXT_DOMAIN);
+			$message.= '</a>';
+
+			wpcci_error( $message , E_USER_ERROR);
+
 			return;
 		}
+	}
+
+	// initialize wp custom category image
+	public static function initialize(){
 
 		if(function_exists( 'add_image_size')) { 
 			add_image_size( 'categoryimage-full' , 1024, 180, true );

@@ -17,6 +17,7 @@ define('TXT_DOMAIN'     , 'wpcustomcategoryimage');
 define('PATH_BASE'      , dirname(__FILE__) . DIRECTORY_SEPARATOR );
 define('PATH_TEMPLATES' , PATH_BASE . 'templates/');
 define('WP_VERSION'     , get_bloginfo('version'));
+define('WP_MIN_VERSION' , 3.5);
 
 
 load_plugin_textdomain(TXT_DOMAIN, FALSE, 'i18n/languages');
@@ -29,4 +30,8 @@ require_once 'functions.php';
 require_once 'WPCustomCategoryImage.php';
 
 
+
 WPCustomCategoryImage::initialize();
+
+
+register_activation_hook( __FILE__ , array('WPCustomCategoryImage','install') );
