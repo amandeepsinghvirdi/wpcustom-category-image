@@ -2,14 +2,14 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
+
 class WPCustomCategoryImage{
 
-
+	// array with all taxonomies
 	private $taxonomies;
 
-
+	// initialize wp custom category image
 	public static function initialize(){
-
 
 		if(!( WP_VERSION >= 3.5)){
 			// NO GOD! PLEASE NO!!! NOOOOOOOOOO
@@ -17,22 +17,17 @@ class WPCustomCategoryImage{
 			return;
 		}
 
-
 		if(function_exists( 'add_image_size')) { 
 			add_image_size( 'categoryimage-full' , 1024, 180, true );
 		}
 
-
 		$CategoryImage = new static;
 		$CategoryImage->taxonomies =  get_taxonomies();
-
-
 
 		add_action('admin_init'            , array($CategoryImage,'admin_init'));
 		add_action('admin_enqueue_scripts' , array($CategoryImage,'enqueue_assets'));
 		add_action('edit_term'             , array($CategoryImage,'save_image'));
 		add_action('create_term'           , array($CategoryImage,'save_image'));
-
 	}
 
 
@@ -47,6 +42,7 @@ class WPCustomCategoryImage{
 
 	}
 
+	// enqueue css and js files
 	public function enqueue_assets( $hook ){
 
 		if( $hook != 'edit-tags.php'){
@@ -84,9 +80,7 @@ class WPCustomCategoryImage{
 	}
 
 	public function save_image($term_id){
-
 		$attachment_id = isset($_POST['categoryimage_attachment']) ? (int) $_POST['categoryimage_attachment'] : null;
-
 		if(!is_null($attachment_id) && $attachment_id > 0 && !empty($attachment_id)){
 			update_option('categoryimage_'.$term_id, $attachment_id);
 		}else{
@@ -103,7 +97,6 @@ class WPCustomCategoryImage{
 	}
 
 	public static function get_category_image_header( $params = array(), $onlysrc=false ){
-
 		$params = array_merge(array(
 			'term_id' => null,
 			'size'    => 'categoryimage-full',
