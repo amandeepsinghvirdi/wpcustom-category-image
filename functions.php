@@ -23,6 +23,7 @@ if(!function_exists('category_image')){
 	function category_image( $params = array(), $echo = false ){
 		
 		$image_header = WPCustomCategoryImage::get_category_image($params);
+		
 
 		if( !$echo ){
 			return $image_header;

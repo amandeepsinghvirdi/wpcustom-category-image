@@ -25,9 +25,10 @@ class WPCustomCategoryImage{
 	// initialize wp custom category image
 	public static function initialize(){
 
-		if(function_exists( 'add_image_size')) { 
-			add_image_size( 'categoryimage-full' , 1024, 180, true );
-		}
+
+		add_image_size('categoryimage-full'        , 1024, 180, true );
+		add_image_size('categoryimage-full-nocrop' , 1024, 180);
+
 
 		$CategoryImage = new static;
 		$CategoryImage->taxonomies =  get_taxonomies();
@@ -49,6 +50,7 @@ class WPCustomCategoryImage{
 		}
 
 	}
+
 
 	// enqueue css and js files
 	public function enqueue_assets( $hook ){
@@ -104,7 +106,7 @@ class WPCustomCategoryImage{
 		return ($this->get_attachment_id( $term_id ) !== false);
 	}
 
-	public static function get_category_image_header( $params = array(), $onlysrc=false ){
+	public static function get_category_image( $params = array(), $onlysrc=false ){
 		$params = array_merge(array(
 			'term_id' => null,
 			'size'    => 'categoryimage-full',
@@ -124,9 +126,11 @@ class WPCustomCategoryImage{
 			}
 		}
 
+
 		if(!$term_id){
 			return;
 		}
+
 
 		$attachment_id   = get_option('categoryimage_'.$term_id);
 		$attachment_meta = get_post_meta($attachment_id, '_wp_attachment_image_alt', true);
@@ -140,6 +144,7 @@ class WPCustomCategoryImage{
 			$src = wp_get_attachment_image_src( $attachment_id , $size , false );
 			return is_array($src) ? $src[0] : null;
 		}
+
 		
 		return wp_get_attachment_image( $attachment_id, $size, false , $attr ); 
 	}
@@ -159,7 +164,7 @@ class WPCustomCategoryImage{
 		if(isset($taxonomy->term_id)){
 			if($this->has_image($taxonomy->term_id)){
 
-				$image = self::get_category_image_header(array(
+				$image = self::get_category_image(array(
 					'term_id' => $taxonomy->term_id
 				),true);
 
