@@ -25,11 +25,6 @@ class WPCustomCategoryImage{
 	// initialize wp custom category image
 	public static function initialize(){
 
-
-		add_image_size('categoryimage-full'        , 1024, 180, true );
-		add_image_size('categoryimage-full-nocrop' , 1024, 180);
-
-
 		$CategoryImage = new static;
 		$CategoryImage->taxonomies =  get_taxonomies();
 
@@ -108,8 +103,8 @@ class WPCustomCategoryImage{
 
 	public static function get_category_image( $params = array(), $onlysrc=false ){
 		$params = array_merge(array(
+			'size'    => 'full',
 			'term_id' => null,
-			'size'    => 'categoryimage-full',
 			'alt'     => null
 		),$params);
 
