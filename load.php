@@ -3,7 +3,7 @@
  * Plugin Name: WPCustom Category Image
  * Plugin URI: http://eduardostuart.com.br/
  * Description: "Customization is a good thing." The Category Image plugin allow users to upload their very own custom category (taxonomy) image to obtain a much more personalized look and feel.
- * Version: 1.1
+ * Version: 1.0
  * Author: Eduardo Stuart
  * Author URI: http://eduardostuart.com.br
  * Tested up to: 3.5
